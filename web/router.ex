@@ -20,7 +20,9 @@ defmodule SymphonyApi.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", SymphonyApi do
-  #   pipe_through :api
-  # end
+  scope "/api", SymphonyApi do
+    pipe_through :api
+
+    resources "/venues", VenueController, except: [:new, :edit]
+  end
 end

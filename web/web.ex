@@ -18,7 +18,11 @@ defmodule SymphonyApi.Web do
 
   def model do
     quote do
-      use Ecto.Model
+      use Ecto.Schema
+
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query, only: [from: 1, from: 2]
     end
   end
 
@@ -27,16 +31,18 @@ defmodule SymphonyApi.Web do
       use Phoenix.Controller
 
       alias SymphonyApi.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
       import SymphonyApi.Router.Helpers
+      import SymphonyApi.Gettext
     end
   end
 
   def view do
     quote do
       use Phoenix.View, root: "web/templates"
+      #use JaSerializer.PhoenixView
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
@@ -45,6 +51,8 @@ defmodule SymphonyApi.Web do
       use Phoenix.HTML
 
       import SymphonyApi.Router.Helpers
+      import SymphonyApi.ErrorHelpers
+      import SymphonyApi.Gettext
     end
   end
 
@@ -59,7 +67,7 @@ defmodule SymphonyApi.Web do
       use Phoenix.Channel
 
       alias SymphonyApi.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
     end
