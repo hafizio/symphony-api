@@ -1,20 +1,14 @@
-defmodule SymphonyApi.Venue do
+defmodule SymphonyApi.Review do
   use SymphonyApi.Web, :model
 
-  schema "venues" do
-    field :name, :string
-    field :address, :string
-    field :phone, :string
-    field :image_url, :string
-    field :details, :string 
-
-    has_many :events, SymphonyApi.Event
-    has_many :reviews, SymphonyApi.Review
+  schema "reviews" do
+    field :content, :string
+    belongs_to :venue, SymphonyApi.Venue
 
     timestamps
   end
 
-  @required_fields ~w(name address phone)
+  @required_fields ~w(content)
   @optional_fields ~w()
 
   @doc """

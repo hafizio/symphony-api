@@ -35,5 +35,6 @@ defmodule SymphonyApi.Endpoint do
     key: "_symphony_api_key",
     signing_salt: "IYi+qByn"
 
+  plug Corsica, origins: "*"
   plug SymphonyApi.Router
 end

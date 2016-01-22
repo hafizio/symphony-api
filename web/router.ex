@@ -10,7 +10,9 @@ defmodule SymphonyApi.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug :accepts, ["json-api"]
+    plug JaSerializer.ContentTypeNegotiation
+    plug JaSerializer.Deserializer
   end
 
   scope "/", SymphonyApi do
@@ -23,6 +25,9 @@ defmodule SymphonyApi.Router do
   scope "/api", SymphonyApi do
     pipe_through :api
 
-    resources "/venues", VenueController, except: [:new, :edit]
+    resources "/venues", VenueController, except: [:new, :edit] do
+      resources "/events", EventController, except: [:new, :edit]
+      resources "/reviews", ReviewController, except: [:new, :edit]
+    end
   end
 end
